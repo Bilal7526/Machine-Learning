@@ -1,1 +1,31 @@
 This folder consists of data file and python implementation of Surrogate and Lime - Model Interpretability methods
+Summary:
+Steps Followed:
+
+1. Import the necessary packages
+2. Read the data.
+3. Check for missing values. Impute the missing values for Item_Weight using median and Outlet_Size using mode
+4. Feature Engineering - 
+   a. Create a new column - Item_Type_Combined from Item_Identifier(extracting the first two letters. Map the corresponding Item - Food, Drinks, Non Consumables.
+   b. create a new column - Outlet_Years- denoting number of operating years calculated as 2013 - Outlet_Establishment_Year(since we have the data from 2013)
+   c. Item_Fat_Content has different values for the same category for ef - Low Fat - Low Fat, LF, low fat and Regular - Regular, reg. Replace the different values and keep as single value for consistency
+5. PreProcessing the data - 
+   a. Using Label encoding - perform Label encoding the ordinal values
+   b. Using One Hot encoding - encode the remaining categorical values
+   c. Drop the Item Type, Item_Identifier, outlet_identifier, Outlet_Establishment_Year columns
+6. Separate the Dataset in to Independent and Dependent variables.
+7. Create the training and validation set 
+8. Train the data using Decision Tree and Random Forest 
+9. Global Surrogate - 
+   a. Create the black box Random Forest Regressor model
+   b. fit the model and save the predictions as new Target
+   c. Define the interpretable Decision Tree model
+   d. Fit the surrogate Decision tree model on training set and new target
+                                                               ------------
+   e.find the Feature importance of decision tree model
+10. Lime - To generate local interpretations of black box models
+    a. Import Explainer function from lime_tabular module of lime library
+    b. Train the Linear Regression, DT and RF on the train data
+    c. Create the explainer function by passing X_train.values, mode("Regression") and feature_names as X_train.columns
+    d. Performing prediction on one of observation
+    e. Test the custom explainer function to validate the generated probabilities for the 3 models(LR, DT and RF)     
